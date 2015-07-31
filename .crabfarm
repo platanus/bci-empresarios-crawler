@@ -1,0 +1,10 @@
+host: http://api.crabfarm.io
+remote: platanus/bciempresarios
+
+files:
+- Crabfile
+- Gemfile
+- Gemfile.lock
+- boot.rb
+- app/**/*.*
+- bin/*
