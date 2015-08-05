@@ -23,7 +23,12 @@ describe VisaNacionalReducer do
   end
 
   it "should set signature", reducing: "visa_nacional_transactions" do
-    expect(reducer.transactions[2].signature).to eq("0206 00884557107")
+    expect(reducer.transactions[3].signature).to eq("00884612084")
+  end
+
+  it "should no set signature when is not present", reducing: "visa_nacional_transactions" do
+    expect(reducer.transactions[0].signature).to eq(nil)
+    expect(reducer.transactions[1].signature).to eq(nil)
   end
 
   context "when there are no transactions" do

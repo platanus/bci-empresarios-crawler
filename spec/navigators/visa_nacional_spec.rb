@@ -25,9 +25,9 @@ describe VisaNacional do
     expect(reducer_visa_nacional.target.tbody.id).to eq("formMovimientos:tbl2_data")
   end
 
-  it "return the parsed transactions", navigating: "bci_empresarios" do
+  it "return and filter valid parsed transactions", navigating: "bci_empresarios" do
     results = state.document
-    expect(results[:transactions].count).to eq(2)
+    expect(results[:transactions].count).to eq(1)
   end
 
 end

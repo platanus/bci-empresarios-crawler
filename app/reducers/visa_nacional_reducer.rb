@@ -28,9 +28,19 @@ class VisaNacionalReducer < Crabfarm::BaseReducer
     transaction.date = Date.strptime(tds[2].text.strip, '%d-%m-%Y')
     transaction.description = tds[3]
     transaction.amount = signed_amount(tds[4])
-    transaction.signature = tds[0].text
+    transaction.signature = signature(tds[0].text)
 
     transaction
+  end
+
+  def signature(raw_text)
+    # only accepted value is 2505 00887352697
+    values = raw_text.strip.split ' '
+
+    return nil if values.count != 2
+    return nil if values[1] == '00000000000'
+
+    return values[1]
   end
 
   def signed_amount(td)

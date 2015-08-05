@@ -9,13 +9,21 @@ class VisaNacional < Crabfarm::BaseNavigator
 
     choose_visa_card('NAC')
 
-    reduce_with_defaults(transactions_table)
+    reducer = reduce_with_defaults(transactions_table)
+
+    {
+      transactions: filter_unsigned_transactions(reducer.transactions)
+    }
   end
 
   private
 
   def transactions_table
     wait_until_present iframe_contenido.div(:id => 'formMovimientos:tbl2').table
+  end
+
+  def filter_unsigned_transactions(transactions)
+    transactions.select &:is_signed?
   end
 
 end
