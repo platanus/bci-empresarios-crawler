@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem "crabfarm", '0.5.3'
+gem "crabfarm", '0.7.7'
 
 # Comment this is not using the nokogiri default HTML parser
 gem 'nokogiri', "~> 1.6.6"
