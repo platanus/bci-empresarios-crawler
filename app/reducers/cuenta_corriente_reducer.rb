@@ -24,8 +24,8 @@ class CuentaCorrienteReducer < Crabfarm::BaseReducer
     transaction = Transaction.new
 
     transaction.date = Date.strptime(tds[0].text.strip, '%d/%m/%Y')
-    transaction.description = tds[1]
-    transaction.signed_amount(tds[3], tds[4])
+    transaction.description = tds[2]
+    transaction.signed_amount(tds[5], tds[7])
 
     transaction
   end

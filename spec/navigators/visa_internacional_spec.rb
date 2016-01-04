@@ -10,30 +10,31 @@ describe VisaInternacional do
     ]
   end
 
-  let!(:reducer_visa_internacional) do
-    spy_reducer(VisaInternacionalReducer).mock_with transactions: transactions_mock
-  end
+  # let!(:reducer_visa_internacional) do
+  #   spy_reducer(VisaInternacionalReducer).mock_with transactions: transactions_mock
+  # end
 
-  before do
+  let!(:login) {
     navigate "login", {
-      rut: '11111111-1',
-      password: "password"
+      rut: ENV['RUT_TEST'],
+      password: ENV['PASSWORD_TEST']
     }
-  end
+  }
 
-  it "should feed the reducer with the movement table element", navigating: "bci_empresarios" do
-    navigate
+  # it "should feed the reducer with the movement table element", navigating: "bci_empresarios_2" do
+  #   navigate
+  #
+  #   selected_card = browser.iframe(:id => 'iframeContenido')
+  #                          .select(:id => 'formMovimientos:select_mostrar')
+  #
+  #   expect(selected_card.value).to eq('EXT')
+  #   expect(reducer_visa_internacional.target.tbody.id).to eq("formMovimientos:tbl2_data")
+  # end
 
-    selected_card = browser.iframe(:id => 'iframeContenido')
-                           .select(:id => 'formMovimientos:select_mostrar')
-
-    expect(selected_card.value).to eq('EXT')
-    expect(reducer_visa_internacional.target.tbody.id).to eq("formMovimientos:tbl2_data")
-  end
-
-  it "return and filter valid parsed transactions", navigating: "bci_empresarios" do
-    results = state.document
-    expect(results[:transactions].count).to eq(1)
+  it "return and filter valid parsed transactions" do
+    results = navigate
+    p results.document[:transactions]
+    expect(results.document[:transactions].count).to eq(1)
   end
 
 end

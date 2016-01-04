@@ -14,7 +14,7 @@ class CuentaCorriente < Crabfarm::BaseNavigator
   private
 
   def transactions_table
-    wait_until_present iframe_contenido.div(:id => 'datosMovimientos').table
+    wait_until_present iframe_contenido.div(:id => 'frmMovimientos:tblMiniCartola').table
   end
 
 end

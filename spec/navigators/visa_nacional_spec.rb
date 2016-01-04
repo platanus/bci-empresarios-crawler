@@ -13,21 +13,21 @@ describe VisaNacional do
     spy_reducer(VisaNacionalReducer).mock_with transactions: transactions_mock
   end
 
-  before do
+  let!(:login) {
     navigate "login", {
-      rut: '11111111-1',
-      password: "password"
+      rut: ENV['RUT_TEST'],
+      password: ENV['PASSWORD_TEST']
     }
-  end
+  }
 
-  it "should feed the reducer with the movement table element", navigating: "bci_empresarios" do
+  it "should feed the reducer with the movement table element", navigating: "bci_empresarios_2" do
     navigate
     expect(reducer_visa_nacional.target.tbody.id).to eq("formMovimientos:tbl2_data")
   end
 
-  it "return and filter valid parsed transactions", navigating: "bci_empresarios" do
-    results = state.document
-    expect(results[:transactions].count).to eq(1)
+  it "return and filter valid parsed transactions", navigating: "bci_empresarios_2" do
+    results = navigate
+    expect(results.document[:transactions].count).to eq(1)
   end
 
 end
