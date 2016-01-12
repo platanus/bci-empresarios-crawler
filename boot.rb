@@ -1,4 +1,6 @@
 require 'bundler'
+require 'active_support'
+require 'active_support/core_ext/numeric'
 
 # Load gems listed in the Gemfile.
 
@@ -8,8 +10,8 @@ Bundler.setup
 CF_PATH = File.expand_path('../', __FILE__)
 
 # Setup code autoloading
-require 'active_support/dependencies'
-ActiveSupport::Dependencies.autoload_paths += Dir.glob File.join(CF_PATH, 'app', '**')
+# require 'active_support/dependencies'
+# ActiveSupport::Dependencies.autoload_paths += Dir.glob File.join(CF_PATH, 'app', '**')
 
 # Load crabfarm framework and configuration
 require 'crabfarm'
