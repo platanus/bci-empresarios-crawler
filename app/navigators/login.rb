@@ -1,25 +1,32 @@
 class Login < Crabfarm::BaseNavigator
+  include NavigatorHelper
 
   def run
     browser.goto 'http://www.bci.cl/empresarios/'
 
-    go_to_login_form
+    login_menu_link.click
+    login_form_link
+    sleep(0.5)
+    login_form_link.click
     fill_login_form
     wait_until_correct_access
-
     {}
   end
 
-  def go_to_login_form
-    browser.div(:id => 'bancoenlinea').link.click
+  def login_menu_link
+    wait_until_present browser.div(id: 'nav-menu').link(class: 'entry-account')
+  end
+
+  def login_form_link
+    wait_until_present browser.div(id: 'container-login').link(class: 'btn-primary')
   end
 
   def fill_login_form
-    iframe = browser.iframe(:src => 'https://bciimg.bci.cl/sitioseguro/loginempresarios_act.html').when_present
+    form = browser.form(id: 'frm').when_present
 
-    iframe.text_field(:name, 'rut_aux').set params[:rut]
-    iframe.text_field(:name, 'clave_aux').set params[:password]
-    iframe.button(:value, 'Ingresar').click
+    form.text_field(:name, 'rut_aux').set params[:rut]
+    form.text_field(:name, 'clave').set params[:password]
+    form.button(:value, 'Ingresar').click
   end
 
   def wait_until_correct_access
