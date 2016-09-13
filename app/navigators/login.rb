@@ -2,7 +2,7 @@ class Login < Crabfarm::BaseNavigator
   include NavigatorHelper
 
   def run
-    browser.goto 'http://www.bci.cl/empresarios/'
+    browser.goto 'https://www.bci.cl/empresarios/'
 
     login_menu_link.click
     login_form_link
