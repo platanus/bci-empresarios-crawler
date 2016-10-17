@@ -11,12 +11,18 @@ class VisaInternacional < Crabfarm::BaseNavigator
     table_nac_text = transactions_table.text
 
     choose_visa_card('EXT')
-    Watir::Wait.until { table_nac_text != transactions_table.text }
+    transactions = []
 
-    visa_internacional_reducer = reduce_with_defaults(transactions_table)
+    begin
+      Watir::Wait.until { table_nac_text != transactions_table.text }
+      visa_internacional_reducer = reduce_with_defaults(transactions_table)
+      transactions = filter_unsigned_transactions(visa_internacional_reducer.transactions)
+    rescue Watir::Wait::TimeoutError => e
+      false
+    end
 
     {
-      transactions: filter_unsigned_transactions(visa_internacional_reducer.transactions)
+      transactions: transactions
     }
   end
 
